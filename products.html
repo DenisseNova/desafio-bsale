@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+  <nav class="navbar py-3" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="index.html">
+        <img src="https://inforedchile.cl/img/uploads/694_tbl_cliente_aviso_2017_08_09_logo_bsale_web_naranjo_500x200.png" alt="">
+        <h3 class="title is-4"> Test</h3>
+      </a>
+  
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <a href="index.html">Home</a>
+        </div>
+        <div class="navbar-item is-active">
+          <a href="products.html">Todos los productos</a>
+        </div>
+        <div class="navbar-item">
+          <form id="buscar">
+            <div class="field has-addons">
+              <div class="control">
+                <input class="input is-primary" id="txtBuscar" type="text" placeholder="Buscar por nombre" required>
+              </div>
+              <div class="control">
+                <button class="button is-primary" type="submit">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="navbar-item">
+          <button class="button mx-2">
+            <i class="fas fa-shopping-cart"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div class="columns is-mobile is-multiline">
+
+    <div class="column py-5 is-12">
+      <div class="container">
+        <div id="productos" class="columns is-multiline is-mobile is-centered">
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="columns is-mobile is-multiline is-centered">
+    <div class="column py-5 is-12-tablet is-8-desktop" id="pagination">
+      
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="./cards.js"></script>
+
+  <script src="./products.js"></script>
+
+</body>
+
+</html>
