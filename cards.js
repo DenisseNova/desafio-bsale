@@ -1,4 +1,4 @@
-const url = "https://bsale-api-dnova.herokuapp.com";
+const url = "http://localhost:3000";
 const cards = document.getElementById("productos");
 const noImage = 'https://st4.depositphotos.com/14953852/24787/v/600/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg'
 
@@ -119,4 +119,41 @@ function printPagination(allRecords, element, rowsPerPage = 6, currentPage = 1, 
       if (callbackChangePage && cPage <= pages && cPage >= 1) callbackChangePage(cPage)
     })
   })
+}
+
+let currentCategoryId = null;
+let prodByCategoryCurrentPage = 1;
+const defaultLimitProdCategory = 6;
+
+async function loadCategories() {
+  try {
+    const select = document.querySelector('#categorias')
+    const response = await axios.get(url + '/category');
+    select.insertAdjacentHTML( 'beforeend', response.data.map( (el) => `<option id="optionCategory" value="${el.id}">${el.name}</option>`).join(''))
+
+    select.addEventListener('change', async (e) => {
+      currentCategoryId = e.target.value;
+      prodByCategoryCurrentPage = 1;
+      document.querySelector('#pagination').innerHTML = '';
+      await loadProductsCategory()
+    })
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+async function loadProductsCategory(offset = 0) {
+  if (!currentCategoryId) return;
+  const select = document.querySelector('#categorias')
+  cards.innerHTML = 'Cargando...'
+  select.setAttribute('disabled', true);
+  const response = await axios.get(`${url}/category/${currentCategoryId}/products?offset=${offset}`).finally(() => select.removeAttribute('disabled'));
+  cards.innerHTML = printCard(response.data.rows)
+  printPagination(response.data.count, document.querySelector('#pagination'), 6, prodByCategoryCurrentPage, changePageProdByCategory);
+}
+
+async function changePageProdByCategory(page) {
+  const newOffset = (Number(page) - 1) * defaultLimitProdCategory;
+  prodByCategoryCurrentPage = Number(page);
+  await loadProductsCategory(newOffset)
 }

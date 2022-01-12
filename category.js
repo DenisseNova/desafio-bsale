@@ -24,7 +24,6 @@ async function getCategoryId(offset = 0, limit = defaultLimit) {
 
     printPagination(response.data.count, document.querySelector('#pagination'), 6, productCurrentPage, changePage);
 
-
   } catch (error) {
     console.error(error);
   }

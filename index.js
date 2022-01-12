@@ -1,5 +1,6 @@
 window.onload = () => {
   getData();  
+  loadCategories()
 }
 
 function printData(arr) {
@@ -10,9 +11,11 @@ function printData(arr) {
         <h3 class="title is-2 is-uppercase">${category.name}</h3>
         <div class="columns is-multiline is-mobile">
           ${cards}
-          <div class="column is-4">
-            <div class="card">
-              <a href="category.html?id=${category.id}&name=${category.name}">Ver Mas</a>
+          <div class="column is-4 is-flex is-justify-content-center is-align-items-center">
+            <div class="">
+              <button class="button is-primary is-light is-large p-6 is-uppercase has-text-weight-semibold">
+                <a href="category.html?id=${category.id}&name=${category.name}">Ver Mas</a>
+              </button>
             </div>
           </div>
         </div>

@@ -32,6 +32,15 @@
         <div class="navbar-item">
           <a href="products.html">Todos los productos</a>
         </div>
+        <div class="navbar-item is-active">
+          <div class="control">
+            <div class="select is-rounded">
+              <select id="categorias">
+                <option>Categoria</option>
+              </select>
+            </div>
+          </div>
+        </div>
         <div class="navbar-item">
           <form id="buscar">
             <div class="field has-addons">
@@ -64,6 +73,10 @@
       </div>
 
     </div>
+  </div>
+
+  <div class="columns is-mobile is-multiline is-centered">
+    <div class="column py-5 is-12-tablet is-8-desktop" id="pagination"></div>
   </div>
   
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
