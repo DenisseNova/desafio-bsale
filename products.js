@@ -3,6 +3,7 @@ let productCurrentPage = 1;
 
 window.onload = () => {
   getAllData();  
+  loadCategories();
 }
 
 async function getAllData(offset = 0, limit = defaultLimit) {

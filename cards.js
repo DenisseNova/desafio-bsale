@@ -2,9 +2,22 @@ const url = "https://bsale-api-dnova.herokuapp.com";
 const cards = document.getElementById("productos");
 const noImage = 'https://st4.depositphotos.com/14953852/24787/v/600/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg'
 
+document.addEventListener('DOMContentLoaded', () => {
+  const navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+  if (navbarBurgers.length > 0) {
+    navbarBurgers.forEach( el => {
+      el.addEventListener('click', () => {
+        const menuMobile = document.querySelector('.navbar .navbar-menu');
+        el.classList.toggle('is-active');
+        menuMobile.classList.toggle('is-active');
+      });
+    });
+  }
+});
+
 function printCard(arr) {
   return arr.map(element => `
-      <div class="column is-4">
+      <div class="column is-4-desktop is-12-mobile">
         <div class="card">
           <div class="card-image">
             <figure class="image is-4by3">
@@ -52,7 +65,8 @@ async function removeToCart(id) {
 async function getByName(name) {
   try {
     const response = await axios.get(`${url}/product/name/${name}?limit=200`);
-    cards.innerHTML = printCard(response.data)
+    if (!response.data || response.data.length < 1) cards.innerHTML = `<h3 class="title is-4">No existe resultado para la busqueda por "${name}".</h3>`
+    else cards.innerHTML = printCard(response.data)
 
     const elementPagination = document.querySelector('#pagination');
     if (elementPagination) elementPagination.innerHTML = '';
@@ -70,6 +84,7 @@ document.querySelector('#buscar').addEventListener('submit', (e) => {
   cards.innerHTML = "Cargando...";
 
   getByName(name)
+
 })
 
 function printPagination(allRecords, element, rowsPerPage = 6, currentPage = 1, callbackChangePage) {
@@ -148,7 +163,15 @@ async function loadProductsCategory(offset = 0) {
   cards.innerHTML = 'Cargando...'
   select.setAttribute('disabled', true);
   const response = await axios.get(`${url}/category/${currentCategoryId}/products?offset=${offset}`).finally(() => select.removeAttribute('disabled'));
-  cards.innerHTML = printCard(response.data.rows)
+  const htmlCards = printCard(response.data.rows);
+  cards.innerHTML = `
+    <div class="column is-12">
+      <h3 class="title is-4 is-uppercase">${select.options[select.selectedIndex].text}</h3>
+    </div>
+    ${htmlCards}
+  `
+  const categoryPage = document.querySelector('#categoryTitle');
+  if (categoryPage) categoryPage.innerHTML = '';
   printPagination(response.data.count, document.querySelector('#pagination'), 6, prodByCategoryCurrentPage, changePageProdByCategory);
 }
 

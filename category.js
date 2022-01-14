@@ -2,7 +2,8 @@ const defaultLimit = 6;
 let productCurrentPage = 1;
 
 window.onload = () => {
-  getCategoryId()
+  getCategoryId();
+  loadCategories();
 }
 
 async function getCategoryId(offset = 0, limit = defaultLimit) {
