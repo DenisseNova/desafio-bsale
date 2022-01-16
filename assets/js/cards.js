@@ -34,10 +34,10 @@ function printCard(arr) {
                 <div class="column is-6">
                   ${element.price ? '$' + new Intl.NumberFormat("es-CL").format(element.price) : 'S/I'}
                 </div>
-                <div class="column is-6 has-text-right">
+                <div class="column is-6 has-text-right" id="btn-cart-${element.id}">
                   ${localStorage.getItem('PROD-' + element.id)
-                    ? `<button class="button is-danger" onclick="removeToCart(${element.id})"> <i class="fas fa-trash"></i></button>`
-                    : `<button class="button is-primary" onclick="addToCart(${element.id})"> <i class="fas fa-shopping-cart"></i></button>`
+                    ? `<button class="button is-danger" type="button" onclick="removeToCart(${element.id}, '${element.name}')"> <i class="fas fa-trash"></i></button>`
+                    : `<button class="button is-primary" type="button" onclick="addToCart(${element.id}, '${element.name}')"> <i class="fas fa-shopping-cart"></i></button>`
                   }
                 </div>
               </div>
@@ -50,20 +50,20 @@ function printCard(arr) {
 }
 
 //funcion que agrega producto al carrito
-async function addToCart(id) {
+async function addToCart(id, name = 'example') {
   const keyProd = `PROD-${id}`;
   const exist = localStorage.getItem(keyProd);
   if (exist) return alert('EL producto ya esta en el carrito');
 
-  localStorage.setItem(keyProd, 'example');
-  getData();
+  localStorage.setItem(keyProd, name);
+  document.querySelector(`#btn-cart-${id}`).innerHTML = `<button class="button is-danger" type="button" onclick="removeToCart(${id}, '${name}')"> <i class="fas fa-trash"></i></button>`
 }
 
 //funcion que retira producto del carrito
-async function removeToCart(id) {
+async function removeToCart(id, name = 'example') {
   const keyProd = `PROD-${id}`;
   localStorage.removeItem(keyProd);
-  getData();
+  document.querySelector(`#btn-cart-${id}`).innerHTML = `<button class="button is-primary" type="button" onclick="addToCart(${id}, '${name}')"> <i class="fas fa-shopping-cart"></i></button>`
 }
 
 //función búsqueda por nombre, si hay resultado imprime los cards y si  no existe coincidencia muestra mensaje que no existe resultado
@@ -189,3 +189,15 @@ async function changePageProdByCategory(page) {
   prodByCategoryCurrentPage = Number(page);
   await loadProductsCategory(newOffset)
 }
+
+//evento click que muestra el nombre del producto agregado en el carrito el cual lo muestra en un alert
+document.querySelector('#btn-cart').addEventListener('click', (e) => {
+  e.preventDefault();
+  const prods = Object.keys(localStorage)
+    .filter((name) => name.includes('PROD-'))
+    .map((n) => localStorage.getItem(n))
+    .join('\n');
+
+  const message = "Carrito de Compras \n" + (prods || 'Sin productos')
+  alert(message)
+})
