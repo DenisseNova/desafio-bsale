@@ -6,8 +6,8 @@ El proyecto a continuación es un simulador de tienda online, en la cual, se per
 Este compuesto por una aplicación frontend, una api y una base de datos. 
 A continuación, se muestra el diagrama de arquitectura del proyecto:
 
-[Diagrama del Proyecto](https://desafio-bsale.vercel.app/diagram_bsale.png)
-![alt text](https://desafio-bsale.vercel.app/diagram_bsale.png "Diagrama")
+[Diagrama del Proyecto](https://desafio-bsale.vercel.app/assets/images/diagram_bsale.png)
+![alt text](https://desafio-bsale.vercel.app/assets/images/diagram_bsale.png "Diagrama")
 
 En los siguientes puntos se detalla cada uno de estos.
 
@@ -39,5 +39,5 @@ Los endpoint tienen integrado límit y offset para paginar los resultados que se
 
 La base de datos utilizada es MySQL la cual fue entregada con datos para utilizarla en este ejercicio. A continuación, se muestra el modelo de la base de datos.
 
-[Model BD](https://desafio-bsale.vercel.app/model_bsale.jpg)
-![alt text](https://desafio-bsale.vercel.app/model_bsale.jpg "Diagrama")
+[Model BD](https://desafio-bsale.vercel.app/assets/images/model_bsale.jpg)
+![alt text](https://desafio-bsale.vercel.app/assets/images/model_bsale.jpg "Diagrama")
