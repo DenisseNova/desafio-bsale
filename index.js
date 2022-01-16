@@ -3,6 +3,7 @@ window.onload = () => {
   loadCategories()
 }
 
+//funcion que imprime la pagina principal, que trae el nombre de la categoria con dos productos cada uno
 function printData(arr) {
   return arr.map((category) => {
     const cards = printCard(category.Products)
@@ -24,6 +25,7 @@ function printData(arr) {
   }).join('')
 }
 
+//funcion que trae los datos de  de los productos segun su categoria y los carga en la funcion printData
 async function getData() {
   try {
     cards.innerHTML = "Cargando...";

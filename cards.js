@@ -2,6 +2,7 @@ const url = "https://bsale-api-dnova.herokuapp.com";
 const cards = document.getElementById("productos");
 const noImage = 'https://st4.depositphotos.com/14953852/24787/v/600/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg'
 
+//evento click para burger en modo mobile 
 document.addEventListener('DOMContentLoaded', () => {
   const navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
   if (navbarBurgers.length > 0) {
@@ -15,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+//funcion que imprime tarjeta card y que recorre un arreglo para la impresion dinamica de los datos 
 function printCard(arr) {
   return arr.map(element => `
       <div class="column is-4-desktop is-12-mobile">
@@ -47,6 +49,7 @@ function printCard(arr) {
     `).join('');
 }
 
+//funcion que agrega producto al carrito
 async function addToCart(id) {
   const keyProd = `PROD-${id}`;
   const exist = localStorage.getItem(keyProd);
@@ -56,12 +59,14 @@ async function addToCart(id) {
   getData();
 }
 
+//funcion que retira producto del carrito
 async function removeToCart(id) {
   const keyProd = `PROD-${id}`;
   localStorage.removeItem(keyProd);
   getData();
 }
 
+//función búsqueda por nombre, si hay resultado imprime los cards y si  no existe coincidencia muestra mensaje que no existe resultado
 async function getByName(name) {
   try {
     const response = await axios.get(`${url}/product/name/${name}?limit=200`);
@@ -76,6 +81,7 @@ async function getByName(name) {
   }
 }
 
+//evento click para el boton que busqueda por nombre ingresado en el imput
 document.querySelector('#buscar').addEventListener('submit', (e) => {
   e.preventDefault()
 
@@ -84,9 +90,9 @@ document.querySelector('#buscar').addEventListener('submit', (e) => {
   cards.innerHTML = "Cargando...";
 
   getByName(name)
-
 })
 
+//Funcion que recibe 5 parametros para la paginacion
 function printPagination(allRecords, element, rowsPerPage = 6, currentPage = 1, callbackChangePage) {
   const pages = Math.ceil(allRecords / rowsPerPage);
   let numbersLargePage = [];
@@ -140,6 +146,7 @@ let currentCategoryId = null;
 let prodByCategoryCurrentPage = 1;
 const defaultLimitProdCategory = 6;
 
+//funcion que trae el nombre de la categoria y lo imprime en la lista de las opciones de categoria 
 async function loadCategories() {
   try {
     const select = document.querySelector('#categorias')
@@ -157,6 +164,7 @@ async function loadCategories() {
   }
 }
 
+//funcion que trae todos los productos segun la categoria elegida e imprime con el titutlo de la categoria
 async function loadProductsCategory(offset = 0) {
   if (!currentCategoryId) return;
   const select = document.querySelector('#categorias')
@@ -175,6 +183,7 @@ async function loadProductsCategory(offset = 0) {
   printPagination(response.data.count, document.querySelector('#pagination'), 6, prodByCategoryCurrentPage, changePageProdByCategory);
 }
 
+//funcion que crea el nuevo offset para la paginacion y lo envia a la api
 async function changePageProdByCategory(page) {
   const newOffset = (Number(page) - 1) * defaultLimitProdCategory;
   prodByCategoryCurrentPage = Number(page);

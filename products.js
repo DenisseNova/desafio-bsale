@@ -6,6 +6,7 @@ window.onload = () => {
   loadCategories();
 }
 
+//funcion que trae todos los productos de la BD
 async function getAllData(offset = 0, limit = defaultLimit) {
   try {
     cards.innerHTML = "Cargando...";
@@ -20,6 +21,7 @@ async function getAllData(offset = 0, limit = defaultLimit) {
   }
 }
 
+//funcion que crea el nuevo offset para la paginacion y lo envia a la api
 async function changePage(page) {
   const newOffset = (Number(page) - 1) * defaultLimit;
   productCurrentPage = Number(page);
